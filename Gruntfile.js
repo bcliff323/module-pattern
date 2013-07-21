@@ -57,7 +57,8 @@ module.exports = function(grunt) {
     watch: {
       js: {
         files: [
-          'Gruntfile.js', 
+          'Gruntfile.js',
+          'app/modules/*.js', 
           'app/*.js',
           './index.html'
         ],
@@ -71,8 +72,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-contrib-connect');
-  grunt.loadNpmTasks('grunt-contrib-less');
 
   grunt.registerTask('server', ['connect']);
   grunt.registerTask('default', ['jshint', 'concat', 'uglify']);

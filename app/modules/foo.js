@@ -1,15 +1,17 @@
 app.module('foo',    
     [
-        'baz'
+        'baz',
+        'that'
     ],
 
     function() {
-        var root = app;
         var self = {};
+        var require = app.require;
         var baz = {};
 
         self.init = function() {
-            console.log('init foo');
+            baz = require('baz');
+            console.log('baz name: ' + baz.name);
         };
 
         return self;

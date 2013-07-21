@@ -5,12 +5,13 @@ app.module('baz',
     ],
 
     function() {
-        var mods = app.modules;
         var self = {};
+        var require = app.require;
         var foo = {};
 
         self.init = function() {
-            console.log('init baz');
+            foo = require('foo');
+            console.log('foo name: ' + foo.name);
         };
 
         return self;

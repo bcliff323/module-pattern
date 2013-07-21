@@ -13,8 +13,13 @@
             app.modules[name] = mod;
             mod.name = name;
             mod.deps = deps;
+            mod.initialized = false;
 
             app.resolve(deps, name, mod);
+        },
+
+        require : function(name) {
+            return app.modules[name];
         },
 
         resolve : function(deps, n, mod) {
@@ -29,12 +34,15 @@
                         }
                     } else {
                         domReady(function () {
-                            app.init(app.modules[n]);
+                            if(!app.modules[n].initialized) {
+                                app.init(app.modules[n]);
+                            }
                         }); 
                     }
                 }
             } else {
                 mod.init();
+                mod.initialized = true;
             }
         },
 
@@ -53,6 +61,7 @@
 
                     if(depsLoaded === len) {
                         mod.init();
+                        mod.initialized = true;
                     }
                 }
             }

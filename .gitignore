@@ -1,2 +1,4 @@
 node_modules
+app/main.js
+app/main.min.js
 styles/css

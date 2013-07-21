@@ -1,13 +1,17 @@
 app.module('that',    
-    [],
+    [
+        'foo',
+        'baz'
+    ],
 
     function() {
-        var mods = app.modules;
         var self = {};
+        var require = app.require;
         var foo = {};
 
         self.init = function() {
-            console.log('init that');
+            foo = require('foo');
+            console.log('foo name: ' + foo.name);
         };
 
         return self;
