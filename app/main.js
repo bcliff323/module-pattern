@@ -19,27 +19,42 @@
 
         resolve : function(deps, n, mod) {
             if(mod.deps.length) {
-                var safe = false;
-
+                var depsLoaded = 0;
                 for (var i = 0, len = mod.deps.length; i < len; i++) {
                     if(app.modules[mod.deps[i]] !== undefined) {
-                        app.modules[n].init();
+                        depsLoaded++;
+
+                        if(depsLoaded === len) {
+                            app.modules[n].init();
+                        }
                     } else {
                         domReady(function () {
-                            if(app.modules[mod.deps[i-1]] !== undefined) {
-                                app.modules[n].init();
-                            } else {
-                                if (window.console) {
-                                    console.log('[Error] Module: ' + app.modules[n].name + 
-                                    ' contains a reference to non-existent module - ' +
-                                        mod.deps[i-1] );
-                                }
-                            }
+                            app.init(app.modules[n]);
                         }); 
                     }
                 }
             } else {
                 mod.init();
+            }
+        },
+
+        init : function(mod) {
+            var depsLoaded = 0;
+            for (var i = 0, len = mod.deps.length; i < len; i++) {
+                if (app.modules[mod.deps[i]] === undefined) {
+                    if(window.console !== undefined) {
+                        console.log('[Error] Module : ' +
+                            mod.name +
+                            ' contains an undefined dependency, ' +
+                            mod.deps[i]);
+                    }
+                } else {
+                    depsLoaded++;
+
+                    if(depsLoaded === len) {
+                        mod.init();
+                    }
+                }
             }
         }
 
@@ -49,7 +64,7 @@
 
 app.module('foo',    
     [
-        'baz'
+        'baz',
     ],
 
     function() {
@@ -86,10 +101,7 @@ app.module('baz',
 
 
 app.module('that',    
-    [
-        'foo',
-        'baz'
-    ],
+    [],
 
     function() {
         var mods = app.modules;
