@@ -59,7 +59,7 @@ module.exports = function(grunt) {
         files: [
           'Gruntfile.js',
           'app/modules/*.js', 
-          'app/*.js',
+          'app/app.js',
           './index.html'
         ],
         tasks: ['default']
