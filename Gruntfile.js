@@ -23,6 +23,27 @@ module.exports = function(grunt) {
       }
     },
 
+    concat: {
+      options: {
+        separator: '\n',
+      },
+      dist: {
+        src: ['domReady.min.js','app/app.js','app/modules/*.js'],
+        dest: 'app/main.js',
+      },
+    },
+
+    uglify: {
+      options: {
+        compress: true
+      },
+      minify: {
+        files: {
+          'app/main.min.js': ['app/main.js']
+        }
+      }
+    },
+
     connect: {
       all: {
         options:{
@@ -47,10 +68,12 @@ module.exports = function(grunt) {
   });
 
   grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-less');
 
   grunt.registerTask('server', ['connect']);
-  grunt.registerTask('default', ['jshint']);
+  grunt.registerTask('default', ['jshint', 'concat', 'uglify']);
 };
