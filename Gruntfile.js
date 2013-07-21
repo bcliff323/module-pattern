@@ -28,7 +28,7 @@ module.exports = function(grunt) {
         separator: '\n',
       },
       dist: {
-        src: ['app/util/*.js','domReady.min.js','app/app.js','app/modules/*.js'],
+        src: ['app/util/*.js','app/lib/*.js','domReady.min.js','app/app.js','app/modules/*.js'],
         dest: 'app/main.js',
       },
     },
@@ -59,7 +59,8 @@ module.exports = function(grunt) {
         files: [
           'Gruntfile.js',
           'app/modules/*.js',
-          'app/util/*.js', 
+          'app/util/*.js',
+          'app/lib/*.js', 
           'app/app.js',
           './index.html'
         ],
