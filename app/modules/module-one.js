@@ -19,15 +19,15 @@ app.module('moduleOne',
 
         // Initialization occurs after all listed dependencies are loaded.
         self.init = function() {
+            // Retreive references to dependencies.
+            modTwo = app.require('moduleTwo');
+            modThree = app.require('moduleThree');
+            
             console.log('================================================\n');
 
             console.log('[Info] ' +
                 'Initializing module: ' +
                 'moduleOne');
-
-            // Retreive references to dependencies.
-            modTwo = app.require('moduleTwo');
-            modThree = app.require('moduleThree');
 
             console.log('[Info] ' +
                 'Accessing module: ' +
